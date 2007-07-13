@@ -1,13 +1,13 @@
 %define name ipset
-%define version 2.2.9
-%define cvsdate 20060508
+%define version 2.2.9a
+%define cvsdate 20061009
 %define release %mkrel 1
 
 Summary: Tools for managing sets of IP or ports with iptables
 Name: %{name}
 Version: %{version}
 Release: %{release}
-Source0: %{name}-%{version}-%{cvsdate}.tar.bz2
+Source0: http://ipset.netfilter.org/%{name}-%{version}-%{cvsdate}.tar.bz2
 Source1: %{name}-kernel-headers.tar.bz2
 
 License: GPL
