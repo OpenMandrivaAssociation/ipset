@@ -13,7 +13,6 @@ Source1: %{name}-kernel-headers.tar.bz2
 License: GPL
 Group: System/Kernel and hardware
 Url: http://ipset.netfilter.org/
-BuildRoot: %{_tmppath}/%{name}-%{release}-%{cvsdate}-buildroot
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel,
