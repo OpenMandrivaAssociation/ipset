@@ -1,7 +1,7 @@
 %define name ipset
 %define version 2.2.9a
 %define cvsdate 20061009
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary: Tools for managing sets of IP or ports with iptables
 Name: %{name}
