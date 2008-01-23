@@ -1,19 +1,18 @@
 %define name ipset
-%define version 2.2.9a
-%define cvsdate 20061009
-%define release %mkrel 2
+%define version 2.3.0
+%define cvsdate 20070828
+%define release %mkrel 1
 
-Summary: Tools for managing sets of IP or ports with iptables
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: http://ipset.netfilter.org/%{name}-%{version}-%{cvsdate}.tar.bz2
-Source1: %{name}-kernel-headers.tar.bz2
-
-License: GPL
-Group: System/Kernel and hardware
-Url: http://ipset.netfilter.org/
-BuildRoot: %{_tmppath}/%{name}-%{release}-%{cvsdate}-buildroot
+Summary:	Tools for managing sets of IP or ports with iptables
+Name:		ipset
+Version:	2.3.0
+Release:	%mkrel 1
+Source0:	http://ipset.netfilter.org/%{name}-%{version}-%{cvsdate}.tar.bz2
+Source1:	%{name}-kernel-headers.tar.bz2
+License:	GPLv2+
+Group:		System/Kernel and hardware
+Url:		http://ipset.netfilter.org/
+BuildRoot:	%{_tmppath}/%{name}-%{release}-%{cvsdate}-buildroot
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel,
@@ -34,14 +33,16 @@ ipset may be the proper tool for you, if you want to
 %setup -q -a 1
 
 %build
-make all KERNEL_DIR=$PWD/linux-2.6 PREFIX=/usr LIBDIR=%{_libdir}
+export CFLAGS="%{optflags}"
+
+%make all KERNEL_DIR=$PWD/linux-2.6 PREFIX=%{_prefix} LIBDIR=%{_libdir}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%makeinstall_std PREFIX=/usr MANDIR=%{_mandir} LIBDIR=%{_libdir}
+rm -rf %{buildroot}
+%makeinstall_std PREFIX=%{_prefix} MANDIR=%{_mandir} LIBDIR=%{_libdir}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
