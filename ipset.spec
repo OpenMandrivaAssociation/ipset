@@ -3,7 +3,7 @@
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
 Version:	2.3.0
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
