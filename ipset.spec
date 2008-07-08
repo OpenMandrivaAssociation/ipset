@@ -3,12 +3,13 @@
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
 Version:	2.3.0
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}-%{cvsdate}.tar.bz2
 Source1:	%{name}-kernel-headers.tar.bz2
+Patch0:		ipset-glibc28.diff
 BuildRoot:	%{_tmppath}/%{name}-%{release}-%{cvsdate}-buildroot
 
 %description
@@ -27,7 +28,9 @@ ipset may be the proper tool for you, if you want to
    iptables rule and benefit from the speed of IP sets 
 
 %prep
+
 %setup -q -a 1
+%patch0 -p1
 
 %build
 export CFLAGS="%{optflags}"
@@ -36,6 +39,7 @@ export CFLAGS="%{optflags}"
 
 %install
 rm -rf %{buildroot}
+
 %makeinstall_std PREFIX=%{_prefix} MANDIR=%{_mandir} LIBDIR=%{_libdir}
 
 %clean
