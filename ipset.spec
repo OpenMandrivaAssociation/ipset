@@ -1,6 +1,6 @@
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	2.4.5
+Version:	2.4.9
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Kernel and hardware
