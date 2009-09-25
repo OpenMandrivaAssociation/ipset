@@ -1,11 +1,12 @@
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
 Version:	2.4.9
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
+Patch0:		ipset_upstream_alignment_fix.patch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -29,6 +30,7 @@ ipset may be the proper tool for you, if you want to
 %prep
 
 %setup -q
+%patch0 -p1
 
 %build
 
