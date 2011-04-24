@@ -1,12 +1,23 @@
+# (tmb) temp linking fix
+%define _disable_ld_as_needed 1
+%define _disable_ld_no_undefined 1
+
+# (tmb) hack to get it to build against correct kernel config (not running one)
+%define kflavour desktop
+%define kver	2.6.38.4
+%define krel	1mnb2
+
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	4.4
+Version:	6.4
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Requires:	libmnl
+BuildRequires:	mnl-devel
+BuildRequires:	kernel-%{kflavour}-devel-%{kver}-%{krel}
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
@@ -27,17 +38,17 @@ ipset may be the proper tool for you, if you want to
    rule and benefit from the speed of IP sets 
 
 %prep
-
 %setup -q
 
 %build
-
-%make binaries COPT_FLAGS="%{optflags}" PREFIX=%{_prefix} LIBDIR=%{_libdir}
+aclocal -I m4
+autoreconf -fi
+%configure2_5x --with-kbuild=/usr/src/linux-%{kver}-%{kflavour}-%{krel}
+%make
 
 %install
 rm -rf %{buildroot}
-
-make binaries_install PREFIX=%{buildroot}%{_prefix} MANDIR=%{buildroot}%{_mandir} LIBDIR=%{buildroot}%{_libdir}
+%makeinstall_std
 
 %clean
 rm -rf %{buildroot}
@@ -46,5 +57,5 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc ChangeLog ChangeLog.ippool
 %{_sbindir}/*
-%{_libdir}/%{name}/*
+%{_libdir}/*
 %{_mandir}/man8/*.8*
