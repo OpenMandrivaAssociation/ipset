@@ -1,7 +1,3 @@
-# (tmb) temp linking fix
-%define _disable_ld_as_needed 1
-%define _disable_ld_no_undefined 1
-
 # (tmb) hack to get it to build against correct kernel config (not running one)
 %define kflavour desktop
 %define kver	2.6.38.4
@@ -10,7 +6,7 @@
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
 Version:	6.4
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
@@ -43,12 +39,14 @@ ipset may be the proper tool for you, if you want to
 %build
 aclocal -I m4
 autoreconf -fi
-%configure2_5x --with-kbuild=/usr/src/linux-%{kver}-%{kflavour}-%{krel}
+%configure2_5x --with-kbuild=/usr/src/linux-%{kver}-%{kflavour}-%{krel} --disable-shared
 %make
 
 %install
 rm -rf %{buildroot}
 %makeinstall_std
+
+rm -f %buildroot%_libdir/*.la %buildroot%_libdir/*.a
 
 %clean
 rm -rf %{buildroot}
@@ -57,5 +55,4 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc ChangeLog ChangeLog.ippool
 %{_sbindir}/*
-%{_libdir}/*
 %{_mandir}/man8/*.8*
