@@ -1,19 +1,20 @@
-# (tmb) hack to get it to build against correct kernel config (not running one)
+%ifarch %{arm}
+%define kflavour kirkwood
+%else
 %define kflavour desktop
-%define kver	2.6.38.4
-%define krel	1mnb2
+%endif
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.4
-Release:	%mkrel 2
+Version:	6.9.1
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 Requires:	libmnl
 BuildRequires:	mnl-devel
-BuildRequires:	kernel-%{kflavour}-devel-%{kver}-%{krel}
+BuildRequires:	kernel-%{kflavour}-devel-latest
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
@@ -39,14 +40,16 @@ ipset may be the proper tool for you, if you want to
 %build
 aclocal -I m4
 autoreconf -fi
-%configure2_5x --with-kbuild=/usr/src/linux-%{kver}-%{kflavour}-%{krel} --disable-shared
+KPKG=$(rpm -q --requires kernel-%{kflavour}-devel-latest | grep kernel-%{kflavour}-devel)
+KDIR=$(rpm -ql $KPKG | grep '/usr/src/[^/]*$')
+%configure2_5x --with-kbuild=$KDIR --disable-shared
 %make
 
 %install
 rm -rf %{buildroot}
 %makeinstall_std
 
-rm -f %buildroot%_libdir/*.la %buildroot%_libdir/*.a
+rm -f %{buildroot}%{_libdir}/*.la %{buildroot}%{_libdir}/*.a
 
 %clean
 rm -rf %{buildroot}
@@ -56,3 +59,4 @@ rm -rf %{buildroot}
 %doc ChangeLog ChangeLog.ippool
 %{_sbindir}/*
 %{_mandir}/man8/*.8*
+
