@@ -6,15 +6,15 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.9.1
-Release:	%mkrel 1
+Version:	6.10
+Release:	%mkrel 0
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 Requires:	libmnl
 BuildRequires:	mnl-devel
-BuildRequires:	kernel-%{kflavour}-devel-latest
+BuildRequires:	kernel-%{kflavour}-devel > 3.1.5
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
@@ -40,23 +40,19 @@ ipset may be the proper tool for you, if you want to
 %build
 aclocal -I m4
 autoreconf -fi
-KPKG=$(rpm -q --requires kernel-%{kflavour}-devel-latest | grep kernel-%{kflavour}-devel)
-KDIR=$(rpm -ql $KPKG | grep '/usr/src/[^/]*$')
+KPKG=kernel-%{kflavour}-devel
+KDIR=$(rpm -ql $KPKG | grep '/usr/src/devel/[^/]*$')
 %configure2_5x --with-kbuild=$KDIR --disable-shared
 %make
 
 %install
 rm -rf %{buildroot}
+
 %makeinstall_std
 
-rm -f %{buildroot}%{_libdir}/*.la %{buildroot}%{_libdir}/*.a
-
-%clean
-rm -rf %{buildroot}
+rm -f %{buildroot}%{_libdir}/*.*a
 
 %files
-%defattr(-,root,root)
 %doc ChangeLog ChangeLog.ippool
 %{_sbindir}/*
 %{_mandir}/man8/*.8*
-
