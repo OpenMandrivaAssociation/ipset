@@ -33,7 +33,16 @@ ipset may be the proper tool for you, if you want to
  o express complex IP address and ports based rulesets with one single iptables
    rule and benefit from the speed of IP sets 
 
+%package	devel
+Group:		Development/C
+Summary:	Headers and static lib for ipset development
+
+%description	devel
+Install this package if you want do compile applications using the ipset
+library.
+
 %prep
+
 %setup -q
 
 %build
@@ -49,9 +58,13 @@ rm -rf %{buildroot}
 
 %makeinstall_std
 
-rm -f %{buildroot}%{_libdir}/*.*a
+rm -f %{buildroot}%{_libdir}/*.la
 
 %files
 %doc ChangeLog ChangeLog.ippool
 %{_sbindir}/*
 %{_mandir}/man8/*.8*
+
+%files devel
+%{_includedir}/libipset
+%{_libdir}/*.a
