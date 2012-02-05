@@ -6,13 +6,12 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.10
-Release:	%mkrel 0
+Version:	6.11
+Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
-Requires:	libmnl
 BuildRequires:	mnl-devel
 BuildRequires:	kernel-%{kflavour}-devel > 3.1.5
 
