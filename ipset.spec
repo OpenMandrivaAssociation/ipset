@@ -93,6 +93,8 @@ rm -rf %{buildroot}
 
 %makeinstall_std
 
+install -d %{buildroot}%{_libdir}/ipset
+
 rm -f %{buildroot}%{_libdir}/*.la
 
 %files
