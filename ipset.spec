@@ -10,15 +10,13 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.12.1
+Version:	6.14
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 BuildRequires:	mnl-devel
-BuildRequires:	autoconf automake libtool
-BuildRequires:	libtool-devel
 BuildRequires:	kernel-%{kflavour}-devel > 3.1.5
 
 %description
@@ -39,7 +37,7 @@ ipset may be the proper tool for you, if you want to
  o express complex IP address and ports based rulesets with one single iptables
    rule and benefit from the speed of IP sets 
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Shared library for managing sets of IP or ports with iptables
 Group:		System/Libraries
 
@@ -53,10 +51,10 @@ against a set.
 This package provides the shared library for managing sets of IP or ports with
 iptables.
 
-%package -n	%{develname}
+%package -n %{develname}
 Summary:	Headers and static lib for ipset development
 Group:		Development/C
-Obsoletes:	ipset-devel
+Obsoletes:	ipset-devel < %{version}-%{release}
 Provides:	ipset-devel = %{version}-%{release}
 
 %description -n	%{develname}
@@ -74,11 +72,11 @@ library.
 %setup -q
 
 %build
-rm -rf autom4te.cache
 aclocal -I m4
 autoreconf -fi
 KPKG=kernel-%{kflavour}-devel
 KDIR=$(rpm -ql $KPKG | grep '/usr/src/devel/[^/]*$')
+
 %configure2_5x \
     --with-kbuild=$KDIR \
     --disable-static \
@@ -89,8 +87,6 @@ KDIR=$(rpm -ql $KPKG | grep '/usr/src/devel/[^/]*$')
 %make
 
 %install
-rm -rf %{buildroot}
-
 %makeinstall_std
 
 install -d %{buildroot}%{_libdir}/ipset
