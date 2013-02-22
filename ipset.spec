@@ -5,19 +5,22 @@
 %ifarch %{arm}
 %define kflavour kirkwood
 %else
-%define kflavour desktop
+# (tmb) hack to get it to build against correct kernel config (not running one)
+%define kflavour nrjQL-desktop
+%define kver	3.7.6
+%define krel	70mdv
 %endif
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
 Version:	6.14
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 BuildRequires:	mnl-devel
-BuildRequires:	kernel-%{kflavour}-devel > 3.1.5
+BuildRequires:	kernel-%{kflavour}-devel-%{kver}-%{krel}
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
@@ -74,11 +77,8 @@ library.
 %build
 aclocal -I m4
 autoreconf -fi
-KPKG=kernel-%{kflavour}-devel
-KDIR=$(rpm -ql $KPKG | grep '/usr/src/devel/[^/]*$')
-
 %configure2_5x \
-    --with-kbuild=$KDIR \
+    --with-kbuild=%{_usrsrc}/linux-%{kver}-%{kflavour}-%{krel} \
     --disable-static \
     --enable-shared \
     --disable-ltdl-install \
