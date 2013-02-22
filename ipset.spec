@@ -1,6 +1,6 @@
-%define major 3
-%define libname %mklibname ipset %{major}
-%define develname %mklibname ipset -d
+%define	major	3
+%define	libname	%mklibname ipset %{major}
+%define	devname	%mklibname ipset -d
 
 %ifarch %{arm}
 %define kflavour kirkwood
@@ -40,7 +40,7 @@ ipset may be the proper tool for you, if you want to
  o express complex IP address and ports based rulesets with one single iptables
    rule and benefit from the speed of IP sets 
 
-%package -n %{libname}
+%package -n	%{libname}
 Summary:	Shared library for managing sets of IP or ports with iptables
 Group:		System/Libraries
 
@@ -54,13 +54,12 @@ against a set.
 This package provides the shared library for managing sets of IP or ports with
 iptables.
 
-%package -n %{develname}
+%package -n	%{devname}
 Summary:	Headers and static lib for ipset development
 Group:		Development/C
-Obsoletes:	ipset-devel < %{version}-%{release}
-Provides:	ipset-devel = %{version}-%{release}
+%rename		ipset-devel
 
-%description -n	%{develname}
+%description -n	%{devname}
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
 administered by the ipset utility. Depending on the type, currently an IP set
 may store IP addresses, (TCP/UDP) port numbers or IP addresses with MAC
@@ -71,19 +70,14 @@ Install this package if you want do compile applications using the ipset
 library.
 
 %prep
-
 %setup -q
 
 %build
-aclocal -I m4
-autoreconf -fi
-%configure2_5x \
-    --with-kbuild=%{_usrsrc}/linux-%{kver}-%{kflavour}-%{krel} \
-    --disable-static \
-    --enable-shared \
-    --disable-ltdl-install \
-    --enable-settype-modules
-
+%configure2_5x	--with-kbuild=%{_usrsrc}/linux-%{kver}-%{kflavour}-%{krel} \
+		--disable-static \
+		--enable-shared \
+		--disable-ltdl-install \
+		--enable-settype-modules
 %make
 
 %install
@@ -91,18 +85,16 @@ autoreconf -fi
 
 install -d %{buildroot}%{_libdir}/ipset
 
-rm -f %{buildroot}%{_libdir}/*.la
-
 %files
 %doc ChangeLog ChangeLog.ippool
-%{_sbindir}/*
-%{_mandir}/man8/*.8*
+%{_sbindir}/ipset
+%{_mandir}/man8/ipset.8*
 
 %files -n %{libname}
 %dir %{_libdir}/ipset
-%{_libdir}/lib*.so.%{major}*
+%{_libdir}/libipset.so.%{major}*
 
-%files -n %{develname}
+%files -n %{devname}
 %dir %{_includedir}/libipset
 %{_includedir}/libipset/*
-%{_libdir}/*.so
+%{_libdir}/libipset.so
