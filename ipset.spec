@@ -7,8 +7,8 @@
 %else
 # (tmb) hack to get it to build against correct kernel config (not running one)
 %define kflavour nrjQL-desktop
-%define kver	3.7.6
-%define krel	70mdv
+%define kver	3.8.5
+%define krel	69mdv
 %endif
 
 Summary:	Tools for managing sets of IP or ports with iptables
