@@ -7,20 +7,25 @@
 %else
 # (tmb) hack to get it to build against correct kernel config (not running one)
 %define kflavour nrjQL-desktop
-%define kver	3.8.5
-%define krel	69mdv
 %endif
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.17
+Version:	6.19
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(libmnl)
-BuildRequires:	kernel-%{kflavour}-devel-%{kver}-%{krel}
+BuildRequires:	kernel-%{kflavour}-devel-latest
+
+%track
+prog %name = {
+	url = http://ipset.netfilter.org/install.html
+	regex = %name-(__VER__)\.tar\.bz2
+	version = %version
+}
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
@@ -73,7 +78,8 @@ library.
 %setup -q
 
 %build
-%configure2_5x	--with-kbuild=%{_usrsrc}/linux-%{kver}-%{kflavour}-%{krel} \
+KERNEL=`ls -1d --sort=time %{_usrsrc}/linux-*-%{kflavour}-* |head -n1`
+%configure2_5x	--with-kbuild=$KERNEL \
 		--disable-static \
 		--enable-shared \
 		--disable-ltdl-install \

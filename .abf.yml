@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   ipset-6.17.tar.bz2: 639e9712e3da68c4334af8d08a9c0876748422b8
+sources:
+  ipset-6.19.tar.bz2: b8f9fe56b6470bb62c4d9adbc86ca7ed97a3430d
