@@ -107,3 +107,4 @@ install -d %{buildroot}%{_libdir}/ipset
 %dir %{_includedir}/libipset
 %{_includedir}/libipset/*
 %{_libdir}/libipset.so
+%{_libdir}/pkgconfig/libipset.pc
