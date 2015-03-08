@@ -1,6 +1,6 @@
-%define	major	3
-%define	libname	%mklibname ipset %{major}
-%define	devname	%mklibname ipset -d
+%define major 3
+%define libname %mklibname ipset %{major}
+%define devname %mklibname ipset -d
 
 %ifarch %{arm}
 %define kflavour kirkwood
@@ -11,8 +11,8 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.19
-Release:	8
+Version:	6.24
+Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
@@ -79,11 +79,14 @@ library.
 
 %build
 KERNEL=`ls -1d --sort=time %{_usrsrc}/linux-*-%{kflavour}-* |head -n1`
-%configure2_5x	--with-kbuild=$KERNEL \
-		--disable-static \
-		--enable-shared \
-		--disable-ltdl-install \
-		--enable-settype-modules
+%configure \
+    --with-kbuild=$KERNEL \
+    --disable-static \
+    --enable-shared \
+    --disable-ltdl-install \
+    --enable-settype-modules \
+    --with-kmod=yes
+
 %make
 
 %install
