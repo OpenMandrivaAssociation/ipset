@@ -12,7 +12,7 @@
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
 Version:	6.24
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
