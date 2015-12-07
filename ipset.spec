@@ -2,6 +2,8 @@
 %define libname %mklibname ipset %{major}
 %define devname %mklibname ipset -d
 
+%define _disable_rebuild_configure 1
+
 %ifarch %{arm}
 %define kflavour kirkwood
 %else
@@ -11,8 +13,8 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.24
-Release:	3
+Version:	6.27
+Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
