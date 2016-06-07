@@ -4,23 +4,16 @@
 
 %define _disable_rebuild_configure 1
 
-%ifarch %{arm}
-%define kflavour kirkwood
-%else
-# (tmb) hack to get it to build against correct kernel config (not running one)
-%define kflavour nrjQL-desktop
-%endif
-
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.27
+Version:	6.29
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(libmnl)
-BuildRequires:	kernel-%{kflavour}-devel-latest
+BuildRequires:	kernel-release-devel
 
 %track
 prog %name = {
@@ -80,7 +73,7 @@ library.
 %setup -q
 
 %build
-KERNEL=`ls -1d --sort=time %{_usrsrc}/linux-*-%{kflavour}-* |head -n1`
+KERNEL=`ls -1d --sort=time %{_usrsrc}/linux-*-*-* |head -n1`
 %configure \
     --with-kbuild=$KERNEL \
     --disable-static \
