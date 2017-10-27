@@ -6,7 +6,7 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.32
+Version:	6.34
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
