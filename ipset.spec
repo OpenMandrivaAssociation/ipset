@@ -6,21 +6,15 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.34
+Version:	6.36
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(libmnl)
+BuildRequires:	pkgconfig(libkmod)
 BuildRequires:	kernel-release-devel
-
-%track
-prog %name = {
-	url = http://ipset.netfilter.org/install.html
-	regex = %name-(__VER__)\.tar\.bz2
-	version = %version
-}
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
