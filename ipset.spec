@@ -1,4 +1,4 @@
-%define major 3
+%define major 11
 %define libname %mklibname ipset %{major}
 %define devname %mklibname ipset -d
 
