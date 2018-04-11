@@ -6,7 +6,7 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.36
+Version:	6.38
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
@@ -34,11 +34,11 @@ ipset may be the proper tool for you, if you want to
  o express complex IP address and ports based rulesets with one single iptables
    rule and benefit from the speed of IP sets 
 
-%package -n	%{libname}
+%package -n %{libname}
 Summary:	Shared library for managing sets of IP or ports with iptables
 Group:		System/Libraries
 
-%description -n	%{libname}
+%description -n %{libname}
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
 administered by the ipset utility. Depending on the type, currently an IP set
 may store IP addresses, (TCP/UDP) port numbers or IP addresses with MAC
@@ -48,12 +48,12 @@ against a set.
 This package provides the shared library for managing sets of IP or ports with
 iptables.
 
-%package -n	%{devname}
+%package -n %{devname}
 Summary:	Headers and static lib for ipset development
 Group:		Development/C
 %rename		ipset-devel
 
-%description -n	%{devname}
+%description -n %{devname}
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
 administered by the ipset utility. Depending on the type, currently an IP set
 may store IP addresses, (TCP/UDP) port numbers or IP addresses with MAC
