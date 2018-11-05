@@ -6,8 +6,8 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	6.38
-Release:	3
+Version:	7.0
+Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
@@ -64,7 +64,7 @@ Install this package if you want do compile applications using the ipset
 library.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 KERNEL=`ls -1d --sort=time %{_usrsrc}/linux-*-*-* |head -n1`
@@ -76,10 +76,10 @@ KERNEL=`ls -1d --sort=time %{_usrsrc}/linux-*-*-* |head -n1`
     --enable-settype-modules \
     --with-kmod=yes
 
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 install -d %{buildroot}%{_libdir}/ipset
 
