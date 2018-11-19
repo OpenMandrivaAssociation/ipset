@@ -1,4 +1,4 @@
-%define major 11
+%define major 13
 %define libname %mklibname ipset %{major}
 %define devname %mklibname ipset -d
 
@@ -67,7 +67,8 @@ library.
 %autosetup -p1
 
 %build
-KERNEL=`ls -1d --sort=time %{_usrsrc}/linux-*-*-* |head -n1`
+KERNEL=$(ls -1d --sort=time %{_usrsrc}/linux-*-*-* |head -n1)
+
 %configure \
     --with-kbuild=$KERNEL \
     --disable-static \
