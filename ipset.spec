@@ -14,7 +14,12 @@ Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(libmnl)
 BuildRequires:	pkgconfig(libkmod)
+%ifnarch riscv64
 BuildRequires:	kernel-release-devel
+%else
+BuildRequires: kernel-devel
+%endif
+
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
