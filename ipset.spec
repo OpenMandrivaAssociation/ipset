@@ -6,7 +6,7 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	7.1
+Version:	7.2
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
@@ -19,7 +19,6 @@ BuildRequires:	kernel-release-devel
 %else
 BuildRequires: kernel-devel
 %endif
-
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
