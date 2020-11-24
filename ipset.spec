@@ -1,4 +1,4 @@
-%define major 12
+%define major 13
 %define libname %mklibname ipset %{major}
 %define devname %mklibname ipset -d
 
@@ -6,7 +6,7 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	7.7
+Version:	7.9
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
