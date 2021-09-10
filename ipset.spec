@@ -6,7 +6,7 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	7.11
+Version:	7.15
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
@@ -91,7 +91,9 @@ install -d %{buildroot}%{_libdir}/ipset
 %files
 %doc ChangeLog ChangeLog.ippool
 %{_sbindir}/ipset
-%{_mandir}/man8/ipset.8*
+%{_sbindir}/ipset-translate
+%doc %{_mandir}/man8/ipset.8*
+%doc %{_mandir}/man8/ipset-translate.8*
 
 %files -n %{libname}
 %dir %{_libdir}/ipset
@@ -102,4 +104,4 @@ install -d %{buildroot}%{_libdir}/ipset
 %{_includedir}/libipset/*
 %{_libdir}/libipset.so
 %{_libdir}/pkgconfig/libipset.pc
-%{_mandir}/man3/libipset.3*
+%doc %{_mandir}/man3/libipset.3*
