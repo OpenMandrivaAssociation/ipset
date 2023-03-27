@@ -4,21 +4,18 @@
 
 %define _disable_rebuild_configure 1
 
+# (tpg) optimize it a bit
+%global optflags %{optflags} -Oz
+
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	7.15
+Version:	7.17
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(libmnl)
-BuildRequires:	pkgconfig(libkmod)
-%ifnarch riscv64
-BuildRequires:	kernel-release-devel
-%else
-BuildRequires: kernel-devel
-%endif
 
 %description
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
@@ -71,15 +68,18 @@ library.
 %autosetup -p1
 
 %build
-KERNEL=$(ls -1d --sort=time %{_usrsrc}/linux-*-*-* |head -n1)
-
 %configure \
-    --with-kbuild=$KERNEL \
-    --disable-static \
+    --enable-static=no \
     --enable-shared \
-    --disable-ltdl-install \
-    --enable-settype-modules \
-    --with-kmod=yes
+    --with-kmod=no
+
+# Just to make absolutely sure we are not building the bundled kernel module
+# I have to do it after the configure run unfortunately
+rm -fr kernel
+ 
+# Prevent libtool from defining rpath
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 %make_build
 
