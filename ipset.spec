@@ -1,16 +1,18 @@
 %define major 13
-%define libname %mklibname ipset %{major}
+%define oldlibname %mklibname ipset 13
+%define libname %mklibname ipset
 %define devname %mklibname ipset -d
 
 %define _disable_rebuild_configure 1
 
 # (tpg) optimize it a bit
 %global optflags %{optflags} -Oz
+%global build_ldflags %{build_ldflags} -Wl,--undefined-version
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
 Version:	7.19
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		http://ipset.netfilter.org/
@@ -38,6 +40,7 @@ ipset may be the proper tool for you, if you want to
 %package -n %{libname}
 Summary:	Shared library for managing sets of IP or ports with iptables
 Group:		System/Libraries
+%rename %{oldlibname}
 
 %description -n %{libname}
 IP sets are a framework inside the Linux 2.4.x and 2.6.x kernel, which can be
