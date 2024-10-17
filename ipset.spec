@@ -15,7 +15,7 @@ Version:	7.21
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
-Url:		http://ipset.netfilter.org/
+Url:		https://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
 BuildRequires:	pkgconfig(libmnl)
 
