@@ -11,7 +11,7 @@
 
 Summary:	Tools for managing sets of IP or ports with iptables
 Name:		ipset
-Version:	7.22
+Version:	7.24
 Release:	1
 License:	GPLv2+
 Group:		System/Kernel and hardware
