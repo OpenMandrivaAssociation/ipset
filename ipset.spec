@@ -17,6 +17,11 @@ License:	GPLv2+
 Group:		System/Kernel and hardware
 Url:		https://ipset.netfilter.org/
 Source0:	http://ipset.netfilter.org/%{name}-%{version}.tar.bz2
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(libmnl)
 
 %description
